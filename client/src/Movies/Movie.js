@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { 
+  useParams, 
+  useHistory,
+} from 'react-router-dom';
+
 export default function Movie(props) {
   const [movie, setMovie] = useState();
-
-  let id = 1;
+  const { id, history } = useParams();
+  
   // Change ^^^ that line and use a hook to obtain the :id parameter from the URL
+
+    const savethewhales = () => {
+    //history.push('/movie');
+  }
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/api/movies/${id}`) // Study this endpoint with Postman
-      .then(response => {
+      .then(esp => {
         // Study this response with a breakpoint or log statements
         // and set the response data as the 'movie' slice of state
+        setMovie(esp.data);
       })
       .catch(error => {
         console.error(error);
@@ -48,7 +58,7 @@ export default function Movie(props) {
           </div>
         ))}
       </div>
-      <div className="save-button">Save</div>
+      <div onClick={savethewhales()}className="save-button">Save</div>
     </div>
   );
 }
